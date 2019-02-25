@@ -1,11 +1,9 @@
 package me.javagyb.data.supplier.test;
 
 import lombok.Data;
-import me.javagyb.data.supplier.annotations.DS_Date;
-import me.javagyb.data.supplier.annotations.DS_Override;
-import me.javagyb.data.supplier.annotations.DS_RandomInteger;
-import me.javagyb.data.supplier.annotations.DS_Regx;
+import me.javagyb.data.supplier.annotations.*;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -23,9 +21,12 @@ public class User {
     private Long age2;
 
     @DS_Regx("[0-9a-z]{32}")
+    @DS_Size(1)
     private List<String> ss;
 
     private String[] te;
+
+    private BigDecimal ds;
 
     @DS_RandomInteger
     private int[] s;

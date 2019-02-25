@@ -13,5 +13,8 @@ public interface Handler<K extends  Annotation,T> {
         return annotation.annotationType().isAssignableFrom(getSupported());
     };
 
+
+
+
      Class<K> getSupported();
 }

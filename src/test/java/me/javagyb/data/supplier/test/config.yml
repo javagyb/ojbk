@@ -1,0 +1,1 @@
+config:  - template:     name : me.javagyb.data.supplier.test.Addr     properties:        - name: id          ignore: true        - name:

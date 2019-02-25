@@ -1,13 +1,23 @@
 package me.javagyb.data.supplier.core;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by javagyb on 2018/1/29.
  */
 public class Supplier {
+
+    protected static ThreadLocal<Set<String>>  exculdes = new ThreadLocal<Set<String>>();
+
+
+    public static void  addExculde(String exculde){
+        Set<String> strings = exculdes.get();
+        if(strings==null){
+            strings = new HashSet<>();
+        }
+        strings.add(exculde);
+        exculdes.set(strings);
+    }
 
     public static <T> T single(Class<T> clazz){
         return Bulider.bulid(clazz);

@@ -6,12 +6,17 @@
 
     <groupId>me.javagyb</groupId>
     <artifactId>ojbk</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.3-SNAPSHOT</version>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.16</version>
+        </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
@@ -50,4 +55,16 @@
             <url>https://jitpack.io</url>
         </repository>
     </repositories>
+
+    <!-- 定义发布库地址 -->
+    <distributionManagement>
+        <repository>
+            <id>repo</id>
+            <url>http://mvn.hz.netease.com/artifactory/libs-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <url>http://mvn.hz.netease.com/artifactory/libs-snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>

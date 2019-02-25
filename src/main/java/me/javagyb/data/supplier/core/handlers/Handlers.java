@@ -20,7 +20,7 @@ public class Handlers {
     static{
         Set<Class<?>> classesByPackageName = ClassUtils.getClassesByPackageName("me.javagyb.data.supplier.core.handlers.impl");
         for(Class<?> clazz: classesByPackageName){
-            if(!clazz.isAssignableFrom(AnnotationHandler.class))
+            if(!AnnotationHandler.class.isAssignableFrom(clazz))
                 continue;
             try {
                 handlers.add((Handler) clazz.newInstance());
