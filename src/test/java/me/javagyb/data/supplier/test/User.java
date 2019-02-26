@@ -14,16 +14,20 @@ import java.util.List;
 @DS_Override(true)
 public class User {
 
-    @DS_Regx("[0-9a-z]{32}")
+
     private String name;
     @DS_RandomInteger
     private Integer age=1;
+
+    @DS_RandomInteger
     private Long age2;
 
     @DS_Regx("[0-9a-z]{32}")
     @DS_Size(1)
     private List<String> ss;
 
+    @DS_Size(1)
+    @DS_RandomString(tuple = {"1","2","3"})
     private String[] te;
 
     private BigDecimal ds;
@@ -31,12 +35,11 @@ public class User {
     @DS_RandomInteger
     private int[] s;
 
-    @DS_Date("2011-2-22 00:00:00")
     private Date start;
 
-    @DS_Regx("^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$")
     private String email;
 
+    private Type type;
 //    private Addr[] addr;
 
 }

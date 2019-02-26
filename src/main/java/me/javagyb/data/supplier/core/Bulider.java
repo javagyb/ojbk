@@ -1,5 +1,6 @@
 package me.javagyb.data.supplier.core;
 
+import java.lang.reflect.ParameterizedType;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 import me.javagyb.data.supplier.annotations.*;
 import me.javagyb.data.supplier.commons.ClassUtils;
@@ -25,6 +26,44 @@ public class Bulider {
     static ThreadLocal<Boolean> override= new ThreadLocal<>();
 
     protected static <T> T bulid(Class<T> clazz){
+        if(me.javagyb.data.supplier.commons.ClassUtils.isPrimitiveOrWrapper(clazz) || clazz.isAssignableFrom(String.class) || clazz.isAssignableFrom(BigDecimal.class)){
+            return (T) Handlers.getCommonsHandler(clazz).value(null);
+        }
+        if(clazz.isArray()){
+            Class<?> componentType = clazz.getComponentType();
+            Object[] values =  new Object[1];
+            values[0] = bulid(componentType);
+            return (T) values;
+        }
+        if(me.javagyb.data.supplier.commons.ClassUtils.isCollection(clazz)){
+            if(ArrayUtils.isEmpty(clazz.getGenericInterfaces())){
+                if(clazz.isAssignableFrom(Set.class)){
+                    HashSet<Object> objects = new HashSet<>();
+                    return (T) objects;
+                }else {
+                    ArrayList<Object> objects = new ArrayList<>();
+                    return (T) objects;
+                }
+            }
+            String typeName = ((ParameterizedType) clazz.getGenericInterfaces()[0])
+                .getActualTypeArguments()[0].getTypeName();
+            try {
+                Class<?> aClass = ClassUtils.forName(typeName, ClassUtils.getDefaultClassLoader());
+                Object bulid = bulid(aClass);
+                if(clazz.isAssignableFrom(Set.class)){
+                    HashSet<Object> objects = new HashSet<>();
+                    objects.add(bulid);
+                    return (T) objects;
+                }else {
+                    ArrayList<Object> objects = new ArrayList<>();
+                    objects.add(bulid);
+                    return (T) objects;
+                }
+            } catch (ClassNotFoundException e) {
+                return null;
+            }
+
+        }
         return bulid(clazz,null);
     }
 
